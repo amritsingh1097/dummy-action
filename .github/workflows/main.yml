@@ -24,9 +24,3 @@ jobs:
           source-dir: dist/app
           target-repo: amritsingh1097/dummy-action
           target-branch: main
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
