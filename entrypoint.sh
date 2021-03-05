@@ -11,6 +11,8 @@ set -x
 
 echo "::group::Logs"
 
+echo "Added group"
+
 echo "Script starts---"
 
 echo "$INPUT_SOURCE_DIR"
