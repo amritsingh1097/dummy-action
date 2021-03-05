@@ -9,8 +9,13 @@
 # Error if variable is unset when using
 # set -u
 
+
+echo "Script starts"
+
 echo "$INPUT_SOURCE_DIR"
 
 echo "$INPUT_TARGET_REPO"
 
 echo "$INPUT_TARGET_BRANCH"
+
+echo "Script ends"
