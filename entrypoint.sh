@@ -9,6 +9,7 @@ set -x
 # Error if variable is unset when using
 # set -u
 
+echo "::group::Logs"
 
 echo "Script starts---"
 
@@ -19,3 +20,5 @@ echo "$INPUT_TARGET_REPO"
 echo "$INPUT_TARGET_BRANCH"
 
 echo "Script ends"
+
+echo "::endgroup::"
