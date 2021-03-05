@@ -11,7 +11,7 @@ set -x
 
 echo ::group::Logs
 
-echo "Added group"
+echo "Added group------"
 
 echo "Script starts---"
 
