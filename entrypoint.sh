@@ -4,7 +4,7 @@
 # set -e
 
 # Prints command and args as they execute
-# set -x
+set -x
 
 # Error if variable is unset when using
 # set -u
