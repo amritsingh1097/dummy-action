@@ -19,7 +19,7 @@ jobs:
     steps:
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        uses: amritsingh1097/dummy-action@v1
+        uses: amritsingh1097/dummy-action@v2
         with:
           source-dir: dist/app
           target-repo: amritsingh1097/dummy-action
