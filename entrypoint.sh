@@ -19,5 +19,3 @@ echo "$INPUT_TARGET_REPO"
 echo "$INPUT_TARGET_BRANCH"
 
 echo "Script ends"
-
-echo "HI"

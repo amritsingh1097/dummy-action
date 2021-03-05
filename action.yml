@@ -6,28 +6,28 @@ description: This workflow will build and deploy the Angular application into th
 
 #Inputs for the action script
 inputs:
-  source-dir:
+  source_dir:
     description: The directory where the distribution bundle is located, e.g., dist/app-name
     required: true
   
-  target-repo:
+  target_repo:
     description: The repository where the distribution bundle will be deployed
     required: true
   
-  target-branch:
+  target_branch:
     description: The branch inside the 'target-repo' where the distribution bundle will be deployed. Defaults to "main" branch.
     required: false
     default: main
   
-  user-email:
+  user_email:
     description: Email for git-push
     required: true
   
-  user-name:
+  user_name:
     description: GitHub username for git-push
     required: true
   
-  commit-message:
+  commit_message:
     description: Custom commit message for git-commit
     required: false
     default: Commit
@@ -37,12 +37,12 @@ runs:
   using: docker
   image: Dockerfile
   args:
-    - ${{ inputs.source-dir }}
-    - ${{ inputs.target-repo }}
-    - ${{ inputs.target-branch }}
-    - ${{ inputs.user-email }}
-    - ${{ inputs.user-name }}
-    - ${{ inputs.commit-message }}
+    - ${{ inputs.source_dir }}
+    - ${{ inputs.target_repo }}
+    - ${{ inputs.target_branch }}
+    - ${{ inputs.user_email }}
+    - ${{ inputs.user_name }}
+    - ${{ inputs.commit_message }}
 
 branding:
   icon: play-circle
