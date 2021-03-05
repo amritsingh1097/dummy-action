@@ -10,7 +10,7 @@ set -x
 # set -u
 
 
-echo "Script starts"
+echo "Script starts---"
 
 echo "$INPUT_SOURCE_DIR"
 
