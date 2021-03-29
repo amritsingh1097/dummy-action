@@ -28,22 +28,22 @@ set -u
 # ****************************************************************************************************
 
 # Mandatory parameter check - Start
-if [ -z $INPUT_SOURCE_BRANCH ]; then
+if [[ -z "$INPUT_SOURCE_BRANCH" ]]; then
     echo "Source branch must be specified"
     return -1
 fi
 
-if [ -z $INPUT_TARGET_REPO ]; then
+if [[ -z "$INPUT_TARGET_REPO" ]]; then
     echo "Target repo must be specified"
     return -1
 fi
 
-if [ -z $INPUT_USER_EMAIL ]; then
+if [[ -z "$INPUT_USER_EMAIL" ]]; then
     echo "Email must be specified"
     return -1
 fi
 
-if [ -z $INPUT_USER_NAME ]; then
+if [[ -z "$INPUT_USER_NAME" ]]; then
     echo "Username must be specified"
     return -1
 fi
@@ -51,16 +51,24 @@ fi
 
 
 # Assign values to optional parameters - Start
-if [ -z $INPUT_TARGET_BRANCH ]; then
-    $INPUT_TARGET_BRANCH="main"
+if [[ -z "$INPUT_TARGET_BRANCH" ]]; then
+    echo "No value specified for 'target_branch'. Taking default branch - 'main'."
+    INPUT_TARGET_BRANCH="main"
 fi
 
-if [ -z $INPUT_COMMIT_MESSAGE ]; then
-    $INPUT_COMMIT_MESSAGE="Application deployed by user $INPUT_USER_NAME from https://github.com/${GITHUB_REPOSITORY}.git using the commit ${GITHUB_SHA}"
+if [[ -z "$INPUT_COMMIT_MESSAGE" ]]; then
+    echo "No commit message specified. Taking default commit message."
+    INPUT_COMMIT_MESSAGE="Application deployed by user $INPUT_USER_NAME from https://github.com/${GITHUB_REPOSITORY}.git using the commit ${GITHUB_SHA}"
 fi
 
-if [ -z $INPUT_DELETE_HISTORY ]; then
-    $INPUT_DELETE_HISTORY=false
+if [[ -z "$INPUT_DELETE_HISTORY" ]]; then
+    echo "No value specified for 'delete_history'. Taking default value - false."
+    INPUT_DELETE_HISTORY=false
+else
+    if [[ "$INPUT_DELETE_HISTORY" != true && "$INPUT_DELETE_HISTORY" != false ]]; then
+        echo "Incorrect value passed for 'delete_history'"
+        return -1
+    fi
 fi
 # Assign values to optional parameters - End
 
@@ -97,23 +105,23 @@ CLONE_REPO=$(mktemp -d)
 SOURCE_REPO="$CLONE_REPO/source"
 
 # Create source repo inside CLONE_REPO
-cd $CLONE_REPO
-mkdir -p $SOURCE_REPO
+cd "$CLONE_REPO"
+mkdir -p "$SOURCE_REPO"
 
 ls -al
-echo $SOURCE_REPO
+echo "$SOURCE_REPO"
 
 # Clone the source github repo - Start
 git config user.email "$INPUT_USER_EMAIL"
 git config user.name "$INPUT_USER_NAME"
-git clone --single-branch --branch $INPUT_SOURCE_BRANCH "https://x-access-token:$API_TOKEN_GITHUB@github.com/$GITHUB_REPOSITORY.git" "$SOURCE_REPO"
+git clone --single-branch --branch $INPUT_SOURCE_BRANCH "https://x-access-token:${API_TOKEN_GITHUB}@github.com/${GITHUB_REPOSITORY}.git" "$SOURCE_REPO"
 # Clone the source github repo - End
 
 
 # Build the Angular app - Start
-cd $SOURCE_REPO
-npm install
-npm run build -- --output-path dist/
+cd "$SOURCE_REPO"
+# npm install
+# npm run build -- --output-path dist/
 # Build the Angular app - End
 
 # ****************************************************************************************************
@@ -144,19 +152,19 @@ npm run build -- --output-path dist/
 
 # Store the target repo path
 TARGET_REPO="$CLONE_REPO/target"
-echo $TARGET_REPO
+echo "$TARGET_REPO"
 
 # Create target repo inside CLONE_REPO
-cd $CLONE_REPO
-mkdir -p $TARGET_REPO
+cd "$CLONE_REPO"
+mkdir -p "$TARGET_REPO"
 
 # Clone the target github repo - Start
 git clone --single-branch --branch $INPUT_TARGET_BRANCH "https://x-access-token:$API_TOKEN_GITHUB@github.com/$INPUT_TARGET_REPO.git" "$TARGET_REPO"
-cd $TARGET_REPO
+cd "$TARGET_REPO"
 
 
 # If $INPUT_DELETE_HISTORY is set to 'true' then reset the .git folder and initialize it again
-if [ $INPUT_DELETE_HISTORY ]; then
+if [[ "$INPUT_DELETE_HISTORY" == "true" ]]; then
     echo "Deleting history"
     rm -rf .git/
     ls -al
@@ -164,7 +172,7 @@ if [ $INPUT_DELETE_HISTORY ]; then
     git config user.email "$INPUT_USER_EMAIL"
     git config user.name "$INPUT_USER_NAME"
     git branch -M "$INPUT_TARGET_BRANCH"
-    git remote add origin "https://x-access-token:$API_TOKEN_GITHUB@github.com/$INPUT_TARGET_REPO.git"
+    git remote add origin "https://x-access-token:${API_TOKEN_GITHUB}@github.com/${INPUT_TARGET_REPO}.git"
     echo "History deleted"
 fi
 # Clone the target github repo - End
