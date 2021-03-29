@@ -61,6 +61,7 @@ if [[ -z "$INPUT_COMMIT_MESSAGE" ]]; then
     INPUT_COMMIT_MESSAGE="Application deployed by user $INPUT_USER_NAME from https://github.com/${GITHUB_REPOSITORY}.git using the commit ${GITHUB_SHA}"
 fi
 
+# Validate delete_hostory variable
 if [[ -z "$INPUT_DELETE_HISTORY" ]]; then
     echo "No value specified for 'delete_history'. Taking default value - false."
     INPUT_DELETE_HISTORY=false
