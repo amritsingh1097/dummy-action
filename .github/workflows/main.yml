@@ -19,8 +19,10 @@ jobs:
     steps:
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        uses: amritsingh1097/dummy-action@v3
+        uses: amritsingh1097/dummy-action@v4
         with:
-          source-dir: dist/app
-          target-repo: amritsingh1097/dummy-action
-          target-branch: main
+          source_branch: main
+          target_repo: amritsingh1097/dummy-action
+          target_branch: main
+          user_email: amrit.1097@gmail.com
+          user_name: Amrit Singh
