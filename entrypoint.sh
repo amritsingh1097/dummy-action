@@ -28,22 +28,22 @@ set -u
 # ****************************************************************************************************
 
 # Mandatory parameter check - Start
-if [ -z $INPUT_SOURCE_BRANCH ] then
+if [ -z $INPUT_SOURCE_BRANCH ]; then
     echo "Source branch must be specified"
     return -1
 fi
 
-if [ -z $INPUT_TARGET_REPO ] then
+if [ -z $INPUT_TARGET_REPO ]; then
     echo "Target repo must be specified"
     return -1
 fi
 
-if [ -z $INPUT_USER_EMAIL ] then
+if [ -z $INPUT_USER_EMAIL ]; then
     echo "Email must be specified"
     return -1
 fi
 
-if [ -z $INPUT_USER_NAME ] then
+if [ -z $INPUT_USER_NAME ]; then
     echo "Username must be specified"
     return -1
 fi
@@ -51,15 +51,15 @@ fi
 
 
 # Assign values to optional parameters - Start
-if [ -z $INPUT_TARGET_BRANCH ] then
+if [ -z $INPUT_TARGET_BRANCH ]; then
     $INPUT_TARGET_BRANCH="main"
 fi
 
-if [ -z $INPUT_COMMIT_MESSAGE ] then
+if [ -z $INPUT_COMMIT_MESSAGE ]; then
     $INPUT_COMMIT_MESSAGE="Application deployed by user $INPUT_USER_NAME from https://github.com/${GITHUB_REPOSITORY}.git using the commit ${GITHUB_SHA}"
 fi
 
-if [ -z $INPUT_DELETE_HISTORY ] then
+if [ -z $INPUT_DELETE_HISTORY ]; then
     $INPUT_DELETE_HISTORY=false
 fi
 # Assign values to optional parameters - End
@@ -156,9 +156,10 @@ cd $TARGET_REPO
 
 
 # If $INPUT_DELETE_HISTORY is set to 'true' then reset the .git folder and initialize it again
-if [ $INPUT_DELETE_HISTORY ] then
+if [ $INPUT_DELETE_HISTORY ]; then
     echo "Deleting history"
     rm -rf .git/
+    ls -al
     git init
     git config user.email "$INPUT_USER_EMAIL"
     git config user.name "$INPUT_USER_NAME"
