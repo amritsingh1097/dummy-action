@@ -113,8 +113,8 @@ ls -al
 echo "$SOURCE_REPO"
 
 # Clone the source github repo - Start
-git config user.email "$INPUT_USER_EMAIL"
-git config user.name "$INPUT_USER_NAME"
+# git config user.email "$INPUT_USER_EMAIL"
+# git config user.name "$INPUT_USER_NAME"
 git clone --single-branch --branch $INPUT_SOURCE_BRANCH "https://x-access-token:${API_TOKEN_GITHUB}@github.com/${GITHUB_REPOSITORY}.git" "$SOURCE_REPO"
 # Clone the source github repo - End
 
